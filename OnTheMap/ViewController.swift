@@ -16,12 +16,16 @@ class ViewController: UIViewController {
     
     var session: NSURLSession!
     var sessionID: String? = nil
+    var userID: Int? = nil
     let baseURLSecureString = "https://www.udacity.com/api"
+    
+    var firstName: String? = nil
+    var lastName: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let session = NSURLSession.sharedSession()
+        session = NSURLSession.sharedSession()
 
     }
 
@@ -30,11 +34,22 @@ class ViewController: UIViewController {
 
     }
 
+    @IBAction func signUpBtn(sender: AnyObject) {
+        let app = UIApplication.sharedApplication()
+        app.openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+    }
+    
 
     @IBAction func loginBtn(sender: AnyObject) {
         getSessionID()
+
         
     }
+    
+    @IBAction func signInFB(sender: AnyObject) {
+        
+    }
+    
     
     func completeLogin() {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -44,10 +59,8 @@ class ViewController: UIViewController {
     }
     
     func getSessionID() {
-        let methodParameters = [
-        ]
-        
         let urlString = baseURLSecureString + "/session"
+
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
@@ -55,6 +68,7 @@ class ViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPBody = "{\"udacity\": {\"username\": \"tarioug@gmail.com\", \"password\": \"lsnear99\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
+
         let task = session.dataTaskWithRequest(request) {data, response, error in
             if error != nil {
                 println("Error dans sessionID")
@@ -63,7 +77,13 @@ class ViewController: UIViewController {
                 
                 var parsingError: NSError? = nil
                 let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
-
+                
+                if let accountDictionary = parsedResult["account"] as? [String: AnyObject] {
+                    if let userID = accountDictionary["key"] as? String {
+                        self.userID = userID.toInt()!
+                        self.getUserData()
+                    }
+                }
                 
                 if let sessionDictionary = parsedResult["session"] as? [String: AnyObject] {
                     if let sessionID = sessionDictionary["id"] as? String {
@@ -73,9 +93,49 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
         task.resume()
     }
     
+    func getUserData() {
+        let urlString = baseURLSecureString + "/users" + "/\(self.userID!)"
+        let url = NSURL(string: urlString)
+        let request = NSURLRequest(URL: url!)
+        
+        
+        let task = session.dataTaskWithRequest(request) {data, response, error in
+            if error != nil {
+                println("Error dans sessionID")
+            } else {
+                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+                var parsingError: NSError? = nil
+                let parsedResult = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError) as! NSDictionary
+                
+//                println(parsedResult)
+                
+                if let userDictionary = parsedResult["user"] as? [String: AnyObject] {
+                    if let firstName = userDictionary["first_name"] as? String {
+                        self.firstName = firstName
+                        println(self.firstName)
+                    }
+                }
+                
+                if let userDictionary = parsedResult["user"] as? [String: AnyObject] {
+                    if let lastName = userDictionary["last_name"] as? String {
+                        self.lastName = lastName
+                        println(self.lastName)
+                    }
+                }
+            }
+        }
+        
+        task.resume()
+
+    }
+    
+    func getTokenFB() {
+        
+    }
     
     func escapedParameters(parameters : [String : AnyObject]) -> String {
         
@@ -86,7 +146,7 @@ class ViewController: UIViewController {
             let stringValue = "\(value)"
             let escapedValue = stringValue.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
             
-            urlVars += [key + "=" + "\(escapedValue)"]
+            urlVars += [key + "=" + "\(escapedValue!)"]
         }
         
         return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)

@@ -48,6 +48,9 @@
                                 <state key="normal" title="Sign in with Facebook">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signInFB:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="AaL-Zf-vwK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laW-Q3-f4w">
                                 <rect key="frame" x="190" y="435" width="220" height="30"/>
@@ -55,6 +58,9 @@
                                 <state key="normal" title="Don't have an account? Sign up">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUpBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="y8O-K7-987"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQt-1R-1gu">
                                 <rect key="frame" x="180" y="54" width="240" height="128"/>
