@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB90B1551B6405C5004D8627 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90B1541B6405C5004D8627 /* FBSDKCoreKit.framework */; };
+		BB90B1571B642435004D8627 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90B1561B642435004D8627 /* FBSDKLoginKit.framework */; };
 		BB93E7331B62C4AD00870325 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB93E7321B62C4AD00870325 /* AppDelegate.swift */; };
 		BB93E7351B62C4AD00870325 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB93E7341B62C4AD00870325 /* ViewController.swift */; };
 		BB93E7381B62C4AD00870325 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB93E7361B62C4AD00870325 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB90B1541B6405C5004D8627 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		BB90B1561B642435004D8627 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		BB93E72D1B62C4AD00870325 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB93E7311B62C4AD00870325 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB93E7321B62C4AD00870325 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB90B1571B642435004D8627 /* FBSDKLoginKit.framework in Frameworks */,
+				BB90B1551B6405C5004D8627 /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +68,8 @@
 				BB93E72F1B62C4AD00870325 /* OnTheMap */,
 				BB93E7451B62C4AD00870325 /* OnTheMapTests */,
 				BB93E72E1B62C4AD00870325 /* Products */,
+				BB90B1561B642435004D8627 /* FBSDKLoginKit.framework */,
+				BB90B1541B6405C5004D8627 /* FBSDKCoreKit.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -340,6 +348,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/menasra/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -350,6 +362,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/menasra/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -409,6 +425,7 @@
 				BB93E74E1B62C4AD00870325 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB93E74F1B62C4AD00870325 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +434,7 @@
 				BB93E7511B62C4AD00870325 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
