@@ -100,17 +100,7 @@ class UdacityClient: NSObject {
                     if let sessionID = sessionDictionary["id"] as? String {
                         self.sessionID = sessionID
                         self.completeLogin(hostViewController)
-                        ParseClient.sharedInstance().getInfo({ (informations, error) -> Void in
-                            if let informations = informations {
-                                
-                                for information in informations {
-                                    println(information.firstName)
-                                }
-                            }
-                            
-                            
-                            
-                        })
+
                     }
                 }
             }
@@ -225,7 +215,32 @@ class UdacityClient: NSObject {
 
 
 
-    
+    func logOut(hostViewController : UIViewController) {
+        
+        let urlString = UdacityClient.Constants.BaseURLSecure + UdacityClient.Methods.Session
+        let url = NSURL(string: urlString)
+        let request = NSMutableURLRequest(URL: url!)
+        
+        request.HTTPMethod = "DELETE"
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies as! [NSHTTPCookie] {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
+            println(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            hostViewController.dismissViewControllerAnimated(true, completion: nil)
+        }
+        task.resume()
+    }
     
     
     

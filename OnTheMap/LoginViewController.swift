@@ -10,17 +10,15 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
 
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-      var session: NSURLSession!
-//var sessionID: String? = nil
-//    var userID: Int? = nil
-//      var accesTokenFB: String? = nil
-//    let baseURLSecureString = "https://www.udacity.com/api"
+
+    
+    var session: NSURLSession!
     
     var firstName: String? = nil
     var lastName: String? = nil
@@ -30,7 +28,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         session = NSURLSession.sharedSession()
         
-//        fbConnection()
+        fbConnection()
+        
+        passwordTextField.delegate = self
 
     }
 
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             UdacityClient.sharedInstance().getSessionIDFB(self)
         } else {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                println(error)
+                println(error.localizedDescription)
                 let alertController = UIAlertController(title: "Ooups", message: "Error with Facebook connection", preferredStyle: UIAlertControllerStyle.Alert)
                 
                 let cancelAction = UIAlertAction(title: "Retry", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
@@ -79,17 +79,23 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     
     func fbConnection() {
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
+        if (FBSDKAccessToken.currentAccessToken() == nil) {
             println("Not logged in..")
         } else {
             println("Logged in..")
-            UdacityClient.sharedInstance().getSessionIDFB(self)
         }
         
         loginFBBtn.readPermissions = ["public_profile", "email"]
         loginFBBtn.delegate = self
     
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        loginBtn(self)
+        return true
+    }
+
     
     
 //    func completeLogin() {

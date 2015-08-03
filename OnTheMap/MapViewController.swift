@@ -9,10 +9,11 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    var students: [ParseStudentInformation]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.navigationItem.rightBarButtonItems = buttons as! [UIBarButtonItem]
         
         loadStudentLocations()
-        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        loadStudentLocations()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,13 +41,36 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     func postStudent(sender: AnyObject){
-        performSegueWithIdentifier("presentEnterLocation", sender: self)
+        if ParseClient.sharedInstance().studentExist(String(UdacityClient.sharedInstance().userID!)) == true {
+            println("existe")
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let alertController = UIAlertController(title: "Ooups", message: "L'utilisateur \(UdacityClient.sharedInstance().firstName!) \(UdacityClient.sharedInstance().lastName!) a déjà posté sa localisation", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (alert) -> Void in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+                alertController.addAction(cancelAction)
+                
+                let overwrite = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
+                    self.performSegueWithIdentifier("presentEnterLocation", sender: self)
+                })
+                alertController.addAction(overwrite)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            })
+
+        } else {
+            performSegueWithIdentifier("presentEnterLocation", sender: self)
+        }
     }
     
     func reloadData(sender: AnyObject) {
         loadStudentLocations()
     }
     
+    @IBAction func logout(sender: AnyObject) {
+        UdacityClient.sharedInstance().logOut(self)
+    }
     
     
     func loadStudentLocations() {
@@ -51,6 +78,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var annotations = [MKPointAnnotation]()
         
         ParseClient.sharedInstance().getInfo { (result, error) -> Void in
+            
+            self.students = result!
+            
             for studentInformation in result! {
                 
                 // Notice that the float values are being used to create CLLocationDegree values.
@@ -80,6 +110,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.mapView.addAnnotations(annotations)
             })
         }
+        
+        println(students)
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -100,6 +132,4 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         return pinView
     }
-
-    
 }

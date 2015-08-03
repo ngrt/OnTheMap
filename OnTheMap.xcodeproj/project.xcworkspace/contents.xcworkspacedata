@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../OnTheMap/InformationPostingViewController.swift">
-   </FileRef>
-   <FileRef
-      location = "group:../OnTheMap/TableViewController.swift">
-   </FileRef>
-   <FileRef
       location = "self:OnTheMap.xcodeproj">
    </FileRef>
 </Workspace>

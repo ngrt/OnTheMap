@@ -11,46 +11,44 @@ import UIKit
 class TableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
 
     var students: [ParseStudentInformation]? = nil
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadStudentLocations()
-
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        println(students)
     }
     
     @IBAction func reloadData(sender: AnyObject) {
-        
         loadStudentLocations()
-        
     }
     
     func loadStudentLocations() {
-        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             ParseClient.sharedInstance().getInfo { (result, error) -> Void in
                 if error != nil {
                     println("Error in downloading the list of students (item tab bar)")
                 } else {
-    
+                    
                     self.students = result!
-    
-    
+                    
                 }
             }
         })
-
     }
     
     func postingLocation() {
         
     }
+    
+    
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return self.students!.count
+        return students!.count
     }
 
     

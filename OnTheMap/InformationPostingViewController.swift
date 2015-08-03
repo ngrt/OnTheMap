@@ -17,6 +17,8 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var finBtn: UIButton!
     @IBOutlet weak var whereStydyingLabel: UILabel!
     @IBOutlet weak var locationTexfField: UITextField!
+    @IBOutlet weak var websiteTextField: UITextField!
+    
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -27,18 +29,23 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     @IBAction func findOnTheMap(sender: AnyObject) {
         
         if firstPage {
-        
             convertStringToGeoloc()
             whereStydyingLabel.text = "Enter a link to share here"
             finBtn.setTitle("Submit", forState: UIControlState.Normal)
             firstPage = false
             mapView.hidden = false
+            websiteTextField.hidden = false
+            locationTexfField.hidden = true
         
         } else {
             //l'envoi du studentInfo vers Parse
+            websiteTextField.hidden = true
+            locationTexfField.hidden = false
             firstPage = true
+            ParseClient.sharedInstance().sendInfo(String(UdacityClient.sharedInstance().userID!), firstName: UdacityClient.sharedInstance().firstName!, lastName: UdacityClient.sharedInstance().lastName!, mapString: locationTexfField.text!, mediaURL: websiteTextField.text!, latitude: Float(coords!.latitude), longitude: Float(coords!.longitude), hostViewController : self)
+            
+
         }
-        
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -91,6 +98,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         mapView.hidden = true
+        websiteTextField.hidden = true
         
     }
 
