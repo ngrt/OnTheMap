@@ -10,55 +10,83 @@ import UIKit
 
 class TableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var students: [ParseStudentInformation]? = nil
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadStudentLocations()
+        
+        var refreshData : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: Selector("reloadData:"))
+        var postData : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: Selector("postStudent:"))
+        
+        
+        var buttons : NSArray = [postData, refreshData]
+        
+        self.navigationItem.rightBarButtonItems = buttons as! [UIBarButtonItem]
+
+        tableView.reloadData()
+        ParseClient.sharedInstance().studentExist(String(UdacityClient.sharedInstance().userID!))
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        println(students)
+        tableView.reloadData()
     }
     
-    @IBAction func reloadData(sender: AnyObject) {
-        loadStudentLocations()
+    func reloadData(sender: AnyObject) {
+        tableView.reloadData()
     }
     
-    func loadStudentLocations() {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            ParseClient.sharedInstance().getInfo { (result, error) -> Void in
-                if error != nil {
-                    println("Error in downloading the list of students (item tab bar)")
-                } else {
-                    
-                    self.students = result!
-                    
-                }
-            }
-        })
+
+    func postStudent(sender: AnyObject) {
+        if ParseClient.sharedInstance().exist == true {
+            println("existe")
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let alertController = UIAlertController(title: "Ooups", message: "L'utilisateur \(UdacityClient.sharedInstance().firstName!) \(UdacityClient.sharedInstance().lastName!) a déjà posté sa localisation", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (alert) -> Void in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+                alertController.addAction(cancelAction)
+                
+                let overwrite = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
+                    self.performSegueWithIdentifier("presentEnterLocationWithOverwrite", sender: self)
+                })
+                alertController.addAction(overwrite)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            })
+            
+        } else {
+            performSegueWithIdentifier("presentEnterLocation", sender: self)
+        }
+
     }
     
-    func postingLocation() {
-        
+    @IBAction func logout(sender: AnyObject) {
+        UdacityClient.sharedInstance().logOut(self)
     }
     
     
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return students!.count
+        return ParseClient.sharedInstance().studentInformation.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Student", forIndexPath: indexPath) as! UITableViewCell
-        var student = students![indexPath.row]
+        var student = ParseClient.sharedInstance().studentInformation[indexPath.row]
         cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
         cell.detailTextLabel?.text = student.mediaURL
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let app = UIApplication.sharedApplication()
+        if let url = NSURL(string: tableView.cellForRowAtIndexPath(indexPath)!.detailTextLabel!.text!)! as? NSURL {
+            app.openURL(url)
+        }
+        
     }
     
 }

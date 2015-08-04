@@ -9,39 +9,30 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    var students: [ParseStudentInformation]? = nil
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         var refreshData : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: Selector("reloadData:"))
         var postData : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: Selector("postStudent:"))
-        
-
         var buttons : NSArray = [postData, refreshData]
-        
         self.navigationItem.rightBarButtonItems = buttons as! [UIBarButtonItem]
         
         loadStudentLocations()
-        // Do any additional setup after loading the view.
+        ParseClient.sharedInstance().studentExist(String(UdacityClient.sharedInstance().userID!))
+
     }
     
     override func viewWillAppear(animated: Bool) {
         loadStudentLocations()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     func postStudent(sender: AnyObject){
-        if ParseClient.sharedInstance().studentExist(String(UdacityClient.sharedInstance().userID!)) == true {
+
+        if ParseClient.sharedInstance().exist == true {
             println("existe")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let alertController = UIAlertController(title: "Ooups", message: "L'utilisateur \(UdacityClient.sharedInstance().firstName!) \(UdacityClient.sharedInstance().lastName!) a déjà posté sa localisation", preferredStyle: UIAlertControllerStyle.Alert)
@@ -52,7 +43,7 @@ class MapViewController: UIViewController {
                 alertController.addAction(cancelAction)
                 
                 let overwrite = UIAlertAction(title: "Overwrite", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
-                    self.performSegueWithIdentifier("presentEnterLocation", sender: self)
+                    self.performSegueWithIdentifier("presentEnterLocationWithOverwrite", sender: self)
                 })
                 alertController.addAction(overwrite)
                 
@@ -74,45 +65,32 @@ class MapViewController: UIViewController {
     
     
     func loadStudentLocations() {
-
+        
         var annotations = [MKPointAnnotation]()
         
-        ParseClient.sharedInstance().getInfo { (result, error) -> Void in
+        for studentInformation in ParseClient.sharedInstance().studentInformation {
             
-            self.students = result!
+            let lat = CLLocationDegrees(studentInformation.latitude as Float)
+            let long = CLLocationDegrees(studentInformation.longitude as Float)
             
-            for studentInformation in result! {
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
-                // Notice that the float values are being used to create CLLocationDegree values.
-                // This is a version of the Double type.
-                let lat = CLLocationDegrees(studentInformation.latitude as Float)
-                let long = CLLocationDegrees(studentInformation.longitude as Float)
-                
-                // The lat and long are used to create a CLLocationCoordinates2D instance.
-                let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                
-                let first = studentInformation.firstName as String
-                let last = studentInformation.lastName as String
-                let mediaURL = studentInformation.mediaURL as String
-                
-                // Here we create the annotation and set its coordiate, title, and subtitle properties
-                var annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = "\(first) \(last)"
-                annotation.subtitle = mediaURL
-                
-                // Finally we place the annotation in an array of annotations.
-                annotations.append(annotation)
-            }
+            let first = studentInformation.firstName as String
+            let last = studentInformation.lastName as String
+            let mediaURL = studentInformation.mediaURL as String
             
-            // When the array is complete, we add the annotations to the map.
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.mapView.addAnnotations(annotations)
-            })
+            var annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = "\(first) \(last)"
+            annotation.subtitle = mediaURL
+            
+            annotations.append(annotation)
         }
         
-        println(students)
-    }
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.mapView.addAnnotations(annotations)
+            })
+        }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
@@ -132,4 +110,19 @@ class MapViewController: UIViewController {
         
         return pinView
     }
+    
+    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if control == annotationView.rightCalloutAccessoryView {
+            let app = UIApplication.sharedApplication()
+            app.openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+        }
+    }
+
 }
+    
+
+
+
+
+
