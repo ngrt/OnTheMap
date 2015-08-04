@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BB3A77CA1B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3A77C91B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift */; };
-		BB41772D1B66B63C0087580D /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB41772C1B66B63C0087580D /* UdacityConvenience.swift */; };
 		BB4177351B6971A30087580D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4177341B6971A30087580D /* MapViewController.swift */; };
 		BB60826F1B65628F00CE73C6 /* ParseStudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB60826E1B65628F00CE73C6 /* ParseStudentInformation.swift */; };
 		BB6082771B656A9C00CE73C6 /* ParseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6082761B656A9C00CE73C6 /* ParseConstants.swift */; };
@@ -39,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		BB3A77C91B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingAfterOverwriteViewController.swift; sourceTree = "<group>"; };
-		BB41772C1B66B63C0087580D /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
 		BB4177341B6971A30087580D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BB60826E1B65628F00CE73C6 /* ParseStudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseStudentInformation.swift; path = ../ParseStudentInformation.swift; sourceTree = "<group>"; };
 		BB6082761B656A9C00CE73C6 /* ParseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConstants.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			children = (
 				BB6E95E91B658037009C3C90 /* UdacityConstants.swift */,
 				BB6E95EB1B65804D009C3C90 /* UdacityClient.swift */,
-				BB41772C1B66B63C0087580D /* UdacityConvenience.swift */,
 			);
 			name = Udacity;
 			sourceTree = "<group>";
@@ -310,7 +307,6 @@
 				BB6082791B656AB600CE73C6 /* ParseClient.swift in Sources */,
 				BB93E7351B62C4AD00870325 /* LoginViewController.swift in Sources */,
 				BB6976DC1B6987A0007FB7F1 /* TableViewController.swift in Sources */,
-				BB41772D1B66B63C0087580D /* UdacityConvenience.swift in Sources */,
 				BB3A77CA1B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift in Sources */,
 				BB4177351B6971A30087580D /* MapViewController.swift in Sources */,
 				BB93E7331B62C4AD00870325 /* AppDelegate.swift in Sources */,
