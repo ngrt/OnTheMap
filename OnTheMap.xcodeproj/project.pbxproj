@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB3A77CA1B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3A77C91B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift */; };
 		BB41772D1B66B63C0087580D /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB41772C1B66B63C0087580D /* UdacityConvenience.swift */; };
 		BB4177351B6971A30087580D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4177341B6971A30087580D /* MapViewController.swift */; };
 		BB60826F1B65628F00CE73C6 /* ParseStudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB60826E1B65628F00CE73C6 /* ParseStudentInformation.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB3A77C91B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingAfterOverwriteViewController.swift; sourceTree = "<group>"; };
 		BB41772C1B66B63C0087580D /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
 		BB4177341B6971A30087580D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BB60826E1B65628F00CE73C6 /* ParseStudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseStudentInformation.swift; path = ../ParseStudentInformation.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		BB6082751B65668F00CE73C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BB3A77C91B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift */,
 				BB6976DD1B6ACA1F007FB7F1 /* InformationPostingViewController.swift */,
 				BB93E7341B62C4AD00870325 /* LoginViewController.swift */,
 				BB6976DB1B6987A0007FB7F1 /* TableViewController.swift */,
@@ -308,6 +311,7 @@
 				BB93E7351B62C4AD00870325 /* LoginViewController.swift in Sources */,
 				BB6976DC1B6987A0007FB7F1 /* TableViewController.swift in Sources */,
 				BB41772D1B66B63C0087580D /* UdacityConvenience.swift in Sources */,
+				BB3A77CA1B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift in Sources */,
 				BB4177351B6971A30087580D /* MapViewController.swift in Sources */,
 				BB93E7331B62C4AD00870325 /* AppDelegate.swift in Sources */,
 				BB6082771B656A9C00CE73C6 /* ParseConstants.swift in Sources */,
