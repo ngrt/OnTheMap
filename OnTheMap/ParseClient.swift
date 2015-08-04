@@ -173,7 +173,7 @@ class ParseClient: NSObject {
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     println(error)
-                    let alertController = UIAlertController(title: "Ooups", message: "Impossible d'envoyer", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alertController = UIAlertController(title: "Ooups", message: "Impossible to send the data", preferredStyle: UIAlertControllerStyle.Alert)
                     
                     let cancelAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert) -> Void in
                         hostViewController.dismissViewControllerAnimated(true, completion: nil)

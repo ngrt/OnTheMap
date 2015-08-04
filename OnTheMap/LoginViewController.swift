@@ -34,11 +34,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-    }
-
     @IBAction func signUpBtn(sender: AnyObject) {
         let app = UIApplication.sharedApplication()
         app.openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
