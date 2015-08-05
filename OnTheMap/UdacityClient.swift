@@ -32,8 +32,13 @@ class UdacityClient: NSObject {
     
     func completeLogin(hostViewController: UIViewController) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let controller = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("MapTabBarController") as! UITabBarController
-            hostViewController.presentViewController(controller, animated: true, completion: nil)
+            //etracted from https://www.youtube.com/watch?v=4r8nh8XUSgs
+            let nextPage = hostViewController.storyboard?.instantiateViewControllerWithIdentifier("MapTabBarController") as! UITabBarController
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            appDelegate.window?.rootViewController = nextPage
+            
         })
     }
     

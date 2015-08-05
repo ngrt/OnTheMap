@@ -16,6 +16,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var greyView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
 
     
     var session: NSURLSession!
@@ -28,11 +31,37 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
         
         session = NSURLSession.sharedSession()
         
-        fbConnection()
+        loginFBBtn.readPermissions = ["public_profile", "email"]
+        loginFBBtn.delegate = self
         
         passwordTextField.delegate = self
+        
+        greyView.hidden = true
+        activityIndicator.hidden = true
 
     }
+    
+    func processing() {
+        greyView.hidden = false
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+    }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        if (FBSDKAccessToken.currentAccessToken() != nil) {
+//            
+//            let nextPage = self.storyboard?.instantiateViewControllerWithIdentifier("MapTabBarController") as! UITabBarController
+//            
+//            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//            
+//            appDelegate.window?.rootViewController = nextPage
+//            
+//            UdacityClient.sharedInstance().accesTokenFB = FBSDKAccessToken.currentAccessToken().tokenString
+//            UdacityClient.sharedInstance().getSessionIDFB(self)
+//            ParseClient.sharedInstance().getInfo(self)
+//
+//        }
+//    }
 
     @IBAction func signUpBtn(sender: AnyObject) {
         let app = UIApplication.sharedApplication()
@@ -43,6 +72,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     @IBAction func loginBtn(sender: AnyObject) {
         UdacityClient.sharedInstance().getSessionID(self, email: emailTextField.text!, password: passwordTextField.text!)
         ParseClient.sharedInstance().getInfo(self)
+        
+        processing()
     }
     
     @IBOutlet weak var loginFBBtn: FBSDKLoginButton!
@@ -54,6 +85,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
             UdacityClient.sharedInstance().accesTokenFB = FBSDKAccessToken.currentAccessToken().tokenString
             UdacityClient.sharedInstance().getSessionIDFB(self)
             ParseClient.sharedInstance().getInfo(self)
+            processing()
         } else {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 println(error.localizedDescription)
@@ -75,18 +107,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     }
     
     
-    func fbConnection() {
-        if (FBSDKAccessToken.currentAccessToken() == nil) {
-            println("Not logged in..")
-        } else {
-            println("Logged in..")
-        }
-        
-        loginFBBtn.readPermissions = ["public_profile", "email"]
-        loginFBBtn.delegate = self
-    
-    }
-    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         loginBtn(self)
@@ -94,4 +114,3 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFie
     }
 
 }
-

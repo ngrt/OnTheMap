@@ -91,9 +91,9 @@
 		BB6082711B65663400CE73C6 /* Parse */ = {
 			isa = PBXGroup;
 			children = (
+				BB6082781B656AB600CE73C6 /* ParseClient.swift */,
 				BB3A77CB1B71736F0072D818 /* ParseStudentInformation.swift */,
 				BB6082761B656A9C00CE73C6 /* ParseConstants.swift */,
-				BB6082781B656AB600CE73C6 /* ParseClient.swift */,
 			);
 			name = Parse;
 			sourceTree = "<group>";
@@ -110,8 +110,8 @@
 		BB6082731B65664A00CE73C6 /* Udacity */ = {
 			isa = PBXGroup;
 			children = (
-				BB6E95E91B658037009C3C90 /* UdacityConstants.swift */,
 				BB6E95EB1B65804D009C3C90 /* UdacityClient.swift */,
+				BB6E95E91B658037009C3C90 /* UdacityConstants.swift */,
 			);
 			name = Udacity;
 			sourceTree = "<group>";
@@ -126,11 +126,11 @@
 		BB6082751B65668F00CE73C6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BB93E7341B62C4AD00870325 /* LoginViewController.swift */,
+				BB4177341B6971A30087580D /* MapViewController.swift */,
+				BB6976DB1B6987A0007FB7F1 /* TableViewController.swift */,
 				BB3A77C91B7135E30072D818 /* InformationPostingAfterOverwriteViewController.swift */,
 				BB6976DD1B6ACA1F007FB7F1 /* InformationPostingViewController.swift */,
-				BB93E7341B62C4AD00870325 /* LoginViewController.swift */,
-				BB6976DB1B6987A0007FB7F1 /* TableViewController.swift */,
-				BB4177341B6971A30087580D /* MapViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";

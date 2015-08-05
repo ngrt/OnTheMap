@@ -26,6 +26,19 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
     
     var coords: CLLocationCoordinate2D?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.locationTexfField.delegate = self
+        self.websiteTextField.delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        mapView.hidden = true
+        websiteTextField.hidden = true
+        
+    }
+    
+    
     @IBAction func findOnTheMap(sender: AnyObject) {
         
         if firstPage {
@@ -91,18 +104,7 @@ class InformationPostingViewController: UIViewController, UITextFieldDelegate {
         mapView.setCamera(mapCamera, animated: true)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.locationTexfField.delegate = self
-    }
     
-    override func viewWillAppear(animated: Bool) {
-        mapView.hidden = true
-        websiteTextField.hidden = true
-        
-    }
-
-
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         findOnTheMap(textField)

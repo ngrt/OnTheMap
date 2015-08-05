@@ -101,6 +101,7 @@ class InformationPostingAfterOverwriteViewController: UIViewController, UITextFi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.locationTexfField.delegate = self
+        self.websiteTextField.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
