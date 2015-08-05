@@ -8,6 +8,8 @@
 
 import UIKit
 import MapKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -15,7 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         var refreshData : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: Selector("reloadData:"))
         var postData : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: Selector("postStudent:"))
         var buttons : NSArray = [postData, refreshData]
@@ -29,6 +31,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillAppear(animated: Bool) {
         loadStudentLocations()
     }
+    
     
     func postStudent(sender: AnyObject){
 
@@ -61,6 +64,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func logout(sender: AnyObject) {
         UdacityClient.sharedInstance().logOut(self)
+        
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        
+        returnToLoginPage()
+        
+    }
+    
+    func returnToLoginPage() {
+        
+        let nextController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginPage") as! LoginViewController
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.window?.rootViewController = nextController
     }
     
     
@@ -120,9 +138,3 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
 }
-    
-
-
-
-
-

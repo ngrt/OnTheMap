@@ -9,7 +9,7 @@
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginPage" id="vXZ-lx-hvc" customClass="LoginViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -81,11 +81,27 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMZ-F5-ALV">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ybm-vU-yeZ">
+                                        <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                        <animations/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="ybm-vU-yeZ" secondAttribute="centerY" id="RC0-Yw-Ues"/>
+                                    <constraint firstAttribute="centerX" secondItem="ybm-vU-yeZ" secondAttribute="centerX" id="oCV-oX-agj"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.49411764705882355" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="hcL-Tj-nhA" secondAttribute="centerX" id="2Cg-c6-GYm"/>
+                            <constraint firstItem="HMZ-F5-ALV" firstAttribute="bottom" secondItem="2fi-mo-0CV" secondAttribute="top" id="8yf-mt-59M"/>
                             <constraint firstItem="hcL-Tj-nhA" firstAttribute="leading" secondItem="m2Z-yu-6oL" secondAttribute="leading" id="DPV-tG-iZR"/>
                             <constraint firstItem="laW-Q3-f4w" firstAttribute="top" secondItem="JsF-UL-64m" secondAttribute="bottom" constant="8" symbolic="YES" id="Hmz-Ax-pgo"/>
                             <constraint firstAttribute="centerX" secondItem="m2Z-yu-6oL" secondAttribute="centerX" id="Ilw-Vt-CP9"/>
@@ -102,14 +118,19 @@
                             <constraint firstItem="hcL-Tj-nhA" firstAttribute="centerX" secondItem="mQt-1R-1gu" secondAttribute="centerX" id="lA4-aC-mYQ"/>
                             <constraint firstItem="JsF-UL-64m" firstAttribute="top" secondItem="7c1-6c-CNi" secondAttribute="bottom" constant="22" id="m4b-HD-5ip"/>
                             <constraint firstItem="hcL-Tj-nhA" firstAttribute="leading" secondItem="JsF-UL-64m" secondAttribute="leading" id="mYL-Ed-me3"/>
+                            <constraint firstItem="HMZ-F5-ALV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="mmV-4o-miS"/>
                             <constraint firstItem="7c1-6c-CNi" firstAttribute="top" secondItem="m2Z-yu-6oL" secondAttribute="bottom" constant="20" id="op6-t6-wh9"/>
+                            <constraint firstAttribute="centerX" secondItem="HMZ-F5-ALV" secondAttribute="centerX" id="qUa-YT-6KX"/>
+                            <constraint firstAttribute="centerY" secondItem="HMZ-F5-ALV" secondAttribute="centerY" id="vUz-AF-m0U"/>
                             <constraint firstItem="JAn-LG-trd" firstAttribute="centerX" secondItem="mQt-1R-1gu" secondAttribute="centerX" constant="1" id="wz9-rw-i1u"/>
                             <constraint firstAttribute="bottom" secondItem="hcL-Tj-nhA" secondAttribute="bottom" constant="20" symbolic="YES" id="zn4-m7-Yh5"/>
                             <constraint firstItem="JAn-LG-trd" firstAttribute="top" secondItem="mQt-1R-1gu" secondAttribute="bottom" constant="74" id="zoI-Nb-Fwr"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ybm-vU-yeZ" id="wiA-NN-ZoS"/>
                         <outlet property="emailTextField" destination="m2Z-yu-6oL" id="5Fo-nc-bB3"/>
+                        <outlet property="greyView" destination="HMZ-F5-ALV" id="gkp-w3-AMO"/>
                         <outlet property="loginFBBtn" destination="hcL-Tj-nhA" id="Ils-R7-WeO"/>
                         <outlet property="passwordTextField" destination="7c1-6c-CNi" id="Wwt-CO-xoh"/>
                     </connections>
@@ -121,7 +142,7 @@
         <!--Map-->
         <scene sceneID="r7u-7W-XJ6">
             <objects>
-                <navigationController id="ZnF-Tx-WYw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationMap" id="ZnF-Tx-WYw" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" id="soW-5k-Jen"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9pG-NZ-WMY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -197,6 +218,7 @@
                                             <constraint firstAttribute="centerX" secondItem="uSa-kY-ZSJ" secondAttribute="centerX" id="BdR-W3-FCP"/>
                                             <constraint firstAttribute="centerX" secondItem="uSa-kY-ZSJ" secondAttribute="centerX" id="Hhd-ff-LIf"/>
                                             <constraint firstItem="XhS-ep-MJw" firstAttribute="top" secondItem="uSa-kY-ZSJ" secondAttribute="bottom" constant="8" id="Jac-nf-RmJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="XhS-ep-MJw" secondAttribute="bottom" id="NIm-0b-SS3"/>
                                             <constraint firstItem="EZZ-8S-yER" firstAttribute="leading" secondItem="h2r-o8-aL4" secondAttribute="leading" constant="8" id="RSz-GY-oFk"/>
                                             <constraint firstAttribute="bottom" secondItem="EZZ-8S-yER" secondAttribute="bottom" id="T0T-j5-MGj"/>
                                             <constraint firstItem="XhS-ep-MJw" firstAttribute="top" secondItem="uSa-kY-ZSJ" secondAttribute="bottom" constant="8" id="Y4T-na-w1t"/>
@@ -269,7 +291,6 @@
                         <constraints>
                             <constraint firstItem="bN6-fa-ekx" firstAttribute="top" secondItem="ekA-b8-oTy" secondAttribute="bottom" id="2pj-e8-z8u"/>
                             <constraint firstItem="ekA-b8-oTy" firstAttribute="top" secondItem="6vu-uD-r0l" secondAttribute="topMargin" id="95D-b6-ohz"/>
-                            <constraint firstItem="nZJ-oP-t4L" firstAttribute="top" secondItem="pae-1S-fqe" secondAttribute="bottom" constant="91" id="BUF-cu-rNk"/>
                             <constraint firstItem="nZJ-oP-t4L" firstAttribute="bottom" secondItem="bN6-fa-ekx" secondAttribute="top" id="Drx-qo-NZs"/>
                             <constraint firstItem="XhS-ep-MJw" firstAttribute="top" secondItem="pae-1S-fqe" secondAttribute="bottom" constant="39" id="FHM-vR-TPG"/>
                             <constraint firstItem="9Uc-Mn-QjF" firstAttribute="leading" secondItem="6vu-uD-r0l" secondAttribute="leadingMargin" id="MlC-UK-pcn"/>
@@ -279,6 +300,7 @@
                             <constraint firstItem="ekA-b8-oTy" firstAttribute="leading" secondItem="6vu-uD-r0l" secondAttribute="leadingMargin" constant="-16" id="jg4-No-KeM"/>
                             <constraint firstItem="XhS-ep-MJw" firstAttribute="top" secondItem="9Uc-Mn-QjF" secondAttribute="bottom" constant="39" id="l8o-ne-yQM"/>
                             <constraint firstItem="9Uc-Mn-QjF" firstAttribute="baseline" secondItem="pae-1S-fqe" secondAttribute="baseline" id="o67-ve-vqU"/>
+                            <constraint firstItem="nZJ-oP-t4L" firstAttribute="top" secondItem="XhS-ep-MJw" secondAttribute="bottom" constant="-1" id="s7F-pH-q9D"/>
                             <constraint firstItem="pae-1S-fqe" firstAttribute="top" secondItem="zo1-OO-wzv" secondAttribute="bottom" id="s8B-gG-JVR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ekA-b8-oTy" secondAttribute="trailing" constant="-16" id="z71-qE-3u7"/>
                         </constraints>
@@ -304,7 +326,7 @@
         <!--On The Map-->
         <scene sceneID="lfW-bU-zo2">
             <objects>
-                <viewController id="R11-IN-WTS" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="R11-IN-WTS" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mIP-46-ciF"/>
                         <viewControllerLayoutGuide type="bottom" id="LRd-97-OD0"/>
@@ -338,7 +360,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="3Ia-hn-5tg" id="xhg-cw-w1E"/>
                         <segue destination="4m7-Vz-cAG" kind="presentation" identifier="presentEnterLocation" id="EUW-cM-c9Q"/>
@@ -359,6 +381,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="yI8-Vj-eSZ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </toolbar>
                     <connections>
                         <segue destination="8fR-12-SOD" kind="relationship" relationship="rootViewController" id="0Wx-ZQ-fAo"/>
                     </connections>
@@ -410,10 +436,11 @@
                     <navigationItem key="navigationItem" title="On The Map" id="Q13-DL-9H3">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="ncw-xe-5bK">
                             <connections>
-                                <action selector="logout:" destination="8fR-12-SOD" id="yMS-jE-Lbf"/>
+                                <action selector="logout:" destination="8fR-12-SOD" id="DjO-c1-5Wh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="4m7-Vz-cAG" kind="presentation" identifier="presentEnterLocation" id="26l-xV-5GL"/>
                         <segue destination="y5R-XZ-O3P" kind="presentation" identifier="presentEnterLocationWithOverwrite" id="a05-tX-mqC"/>
@@ -426,7 +453,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="jG6-As-zwk">
             <objects>
-                <tabBarController storyboardIdentifier="MapTabBarController" id="OeI-lx-Lpj" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MapTabBarController" hidesBottomBarWhenPushed="YES" id="OeI-lx-Lpj" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="m4f-7J-H6C">
@@ -518,12 +545,12 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="o6l-xe-h0D"/>
-                                                <exclude reference="gxW-Mb-0UK"/>
-                                                <exclude reference="IrL-Gb-fp8"/>
-                                                <exclude reference="r0y-rr-zaW"/>
-                                                <exclude reference="VjY-wQ-qwH"/>
                                                 <exclude reference="4mj-U6-OMt"/>
+                                                <exclude reference="IrL-Gb-fp8"/>
+                                                <exclude reference="VjY-wQ-qwH"/>
+                                                <exclude reference="gxW-Mb-0UK"/>
+                                                <exclude reference="o6l-xe-h0D"/>
+                                                <exclude reference="r0y-rr-zaW"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -579,9 +606,9 @@
                             <constraint firstItem="0VZ-o8-2tg" firstAttribute="leading" secondItem="s4b-VI-YK5" secondAttribute="leadingMargin" id="Hu5-oL-1qg"/>
                             <constraint firstItem="vsr-xy-Tfz" firstAttribute="trailing" secondItem="91k-Yt-G2Z" secondAttribute="trailing" id="LmI-qM-PF9"/>
                             <constraint firstItem="0VZ-o8-2tg" firstAttribute="baseline" secondItem="6ac-dN-K1E" secondAttribute="baseline" id="OuH-Wq-6Tm"/>
-                            <constraint firstItem="vsr-xy-Tfz" firstAttribute="top" secondItem="6ac-dN-K1E" secondAttribute="bottom" constant="91" id="QPu-f4-93W"/>
                             <constraint firstItem="91k-Yt-G2Z" firstAttribute="top" secondItem="s4b-VI-YK5" secondAttribute="topMargin" id="RSG-mh-08F"/>
                             <constraint firstItem="GqN-nb-vhT" firstAttribute="top" secondItem="6ac-dN-K1E" secondAttribute="bottom" constant="39" id="ZLA-lr-eY0"/>
+                            <constraint firstItem="vsr-xy-Tfz" firstAttribute="top" secondItem="GqN-nb-vhT" secondAttribute="bottom" constant="-1" id="eh4-tI-2ib"/>
                             <constraint firstItem="91k-Yt-G2Z" firstAttribute="leading" secondItem="s4b-VI-YK5" secondAttribute="leadingMargin" constant="-16" id="fj9-aE-JFm"/>
                             <constraint firstItem="6ac-dN-K1E" firstAttribute="top" secondItem="yT3-Wg-4A5" secondAttribute="bottom" id="hyH-5Z-Sq2"/>
                             <constraint firstItem="GqN-nb-vhT" firstAttribute="top" secondItem="0VZ-o8-2tg" secondAttribute="bottom" constant="39" id="ljo-Vu-iNU"/>

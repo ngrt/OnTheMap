@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class TableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -34,6 +36,26 @@ class TableViewController: UITableViewController, UITableViewDelegate, UITableVi
         tableView.reloadData()
     }
     
+    @IBAction func logout(sender: AnyObject) {
+        UdacityClient.sharedInstance().logOut(self)
+        
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        
+        returnToLoginPage()
+        
+    }
+    
+    func returnToLoginPage() {
+        
+        let nextController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginPage") as! LoginViewController
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.window?.rootViewController = nextController
+    }
+
+    
 
     func postStudent(sender: AnyObject) {
         if ParseClient.sharedInstance().exist == true {
@@ -59,11 +81,6 @@ class TableViewController: UITableViewController, UITableViewDelegate, UITableVi
         }
 
     }
-    
-    @IBAction func logout(sender: AnyObject) {
-        UdacityClient.sharedInstance().logOut(self)
-    }
-    
     
     // MARK: - Table view data source
 
